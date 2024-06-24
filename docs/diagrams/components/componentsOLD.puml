@@ -1,0 +1,40 @@
+@startuml
+
+database "players"
+
+package "Controllers" {
+[PlayerController] --(getPlayerById
+[PlayerController] --(savePlayer
+[LoginController] --(login
+}
+
+package "Services" {
+[LoginService] --(getPlayerByUserNameAndPassword
+[LoginService] --(getPlayerByEmailAndPassword
+[LoginService] --(getPlayerByUserNameOrEmailAndPassword
+login -- [LoginService]
+
+[PlayerService] --(getReferenceById
+[PlayerService] --(save
+[PlayerService] --(findByUsernameOrEmail
+[PlayerService] --(findByUsernameAndPassword
+[PlayerService] --(findByEmailAndPassword
+[PlayerService] --(findByUserNameOrEmailAndPassword
+
+getPlayerById -- [PlayerService]
+savePlayer -- [PlayerService]
+getPlayerByUserNameAndPassword -- [PlayerService]
+getPlayerByEmailAndPassword -- [PlayerService]
+getPlayerByUserNameOrEmailAndPassword -- [PlayerService]
+}
+
+package "Repositories" {
+[PlayerJpaRepository] --("players"
+getReferenceById -- [PlayerJpaRepository]
+save -- [PlayerJpaRepository]
+findByUsernameOrEmail -- [PlayerJpaRepository]
+findByUsernameAndPassword -- [PlayerJpaRepository]
+findByEmailAndPassword -- [PlayerJpaRepository]
+findByUserNameOrEmailAndPassword -- [PlayerJpaRepository]
+}
+@enduml
